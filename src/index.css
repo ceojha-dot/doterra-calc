@@ -1,0 +1,212 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+.font-lcd {
+  font-family: 'Share Tech Mono', 'Chakra Petch', monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.font-lcd-display {
+  font-family: 'Chakra Petch', monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 3D Real Desktop Calculator Hardware Chassis (실물 고급 무광 ABS 플라스틱 섀시 & 라운드 베젤) */
+.chassis-plastic-surface {
+  background: linear-gradient(176deg, #e7ddf5 0%, #dbcaee 40%, #cbb3e4 100%);
+  border: 2px solid #b294d3;
+  box-shadow:
+    0 28px 60px -12px rgba(60, 30, 95, 0.4),
+    0 12px 24px -6px rgba(60, 30, 95, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.6) inset,
+    inset 0 3px 2px rgba(255, 255, 255, 0.95),
+    inset 0 -6px 12px rgba(115, 80, 155, 0.45);
+}
+
+/* Molded Keybed Tray (버튼들이 꽂혀있는 움푹 파인 키베드 트레이) */
+.chassis-inner-bezel {
+  background: linear-gradient(180deg, #cbb6e4 0%, #bca1db 100%);
+  border: 1.5px solid #a88bc9;
+  box-shadow:
+    inset 0 4px 8px rgba(70, 40, 105, 0.35),
+    inset 0 -1.5px 2px rgba(255, 255, 255, 0.7);
+}
+
+/* Realistic Solar Panel Grid (실제 계산기의 상징: 4셀 태양광 집광판 패널) */
+.solar-panel-grid {
+  background: linear-gradient(180deg, #2b1704 0%, #3d2309 50%, #1f1103 100%);
+  border: 1.5px solid #1a0e02;
+  box-shadow:
+    inset 0 2px 3px rgba(0, 0, 0, 0.9),
+    0 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+/* Authentic STN LCD screen matrix styling (클래식 계산기 내추럴 라이트 그레이 액정) */
+.lcd-screen-surface {
+  background-color: #d1d6d2;
+  background-image: 
+    linear-gradient(rgba(20, 30, 25, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 30, 25, 0.04) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+/* Glass glare reflection across top of LCD */
+.lcd-glare {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 32%, transparent 52%);
+}
+
+/* Inset molded bezel around LCD in Deep Midnight Violet */
+.lcd-bezel-frame {
+  background: linear-gradient(180deg, #2a1b3d 0%, #3c2a52 100%);
+  border: 2px solid #543d70;
+  box-shadow:
+    inset 0 4px 9px rgba(10, 5, 20, 0.8),
+    0 1.5px 2px rgba(255, 255, 255, 0.7);
+}
+
+/* 3D Chunky Physical Keycaps (실물 플라스틱 사출 성형 키캡: 묵직한 두께감과 쫀득한 클릭감) */
+.calc-btn-base {
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform 0.06s cubic-bezier(0.18, 0.9, 0.2, 1), box-shadow 0.06s cubic-bezier(0.18, 0.9, 0.2, 1), background-color 0.1s ease;
+  will-change: transform, box-shadow;
+}
+
+.calc-btn-base:active {
+  transform: translateY(3.5px) !important;
+}
+
+/* 1. Standard Digit Keycap: Heavy Ivory Milk White Plastic (숫자 키 0~9, 00, .) */
+.keycap-plastic-standard {
+  background: linear-gradient(180deg, #ffffff 0%, #f7f4fb 85%, #ede6f5 100%);
+  border: 1.5px solid #d5c8e6;
+  color: #2e1a47;
+  box-shadow:
+    0 4.5px 0 #977cb7,
+    0 7px 11px rgba(75, 45, 110, 0.28),
+    inset 0 2px 2px rgba(255, 255, 255, 1),
+    inset 0 -2px 3px rgba(170, 140, 210, 0.25);
+}
+
+.keycap-plastic-standard:active {
+  box-shadow:
+    0 1px 0 #977cb7,
+    0 2px 4px rgba(75, 45, 110, 0.3),
+    inset 0 2px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 2. Function Keycap: Refined Medium doTERRA Violet (보라색 기능 키) */
+.keycap-plastic-func {
+  background: linear-gradient(180deg, #936acb 0%, #7d48ba 100%);
+  border: 1.5px solid #6734a6;
+  color: #ffffff;
+  box-shadow:
+    0 4.5px 0 #522089,
+    0 7px 11px rgba(65, 20, 105, 0.32),
+    inset 0 2px 2px rgba(255, 255, 255, 0.6),
+    inset 0 -2px 3px rgba(45, 12, 75, 0.35);
+}
+
+.keycap-plastic-func:active {
+  box-shadow:
+    0 1px 0 #522089,
+    0 2px 4px rgba(65, 20, 105, 0.35),
+    inset 0 2px 3px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* 3. Operator / Accent Keycap: Golden Amber Yellow or Royal Violet (÷, ×, -, +, =, 주요 동작키) */
+.keycap-plastic-accent {
+  background: linear-gradient(180deg, #f5a623 0%, #e08c0f 100%);
+  border: 1.5px solid #b87109;
+  color: #ffffff;
+  box-shadow:
+    0 4.5px 0 #915603,
+    0 7px 11px rgba(130, 70, 0, 0.32),
+    inset 0 2px 2px rgba(255, 255, 255, 0.65),
+    inset 0 -2px 3px rgba(110, 55, 0, 0.35);
+}
+
+.keycap-plastic-accent:active {
+  box-shadow:
+    0 1px 0 #915603,
+    0 2px 4px rgba(130, 70, 0, 0.35),
+    inset 0 2px 3px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* 4. Clear/AC Keycap: Retro Coral Salmon Pink Key (AC 리셋 전용 키 - 산뜻한 계산기 포인트!) */
+.keycap-plastic-clear {
+  background: linear-gradient(180deg, #f26b65 0%, #dc4d46 100%);
+  border: 1.5px solid #b83630;
+  color: #ffffff;
+  box-shadow:
+    0 4.5px 0 #8f231e,
+    0 7px 11px rgba(140, 30, 25, 0.32),
+    inset 0 2px 2px rgba(255, 255, 255, 0.65),
+    inset 0 -2px 3px rgba(95, 15, 10, 0.35);
+}
+
+.keycap-plastic-clear:active {
+  box-shadow:
+    0 1px 0 #8f231e,
+    0 2px 4px rgba(140, 30, 25, 0.35),
+    inset 0 2px 3px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* 5. Selected / Active Keycap: Pressed Inset Look with Radiant Edge */
+.keycap-plastic-selected {
+  background: #ffffff !important;
+  border: 2px solid #ffffff !important;
+  color: #4a148c !important;
+  box-shadow:
+    0 2.5px 0 #7e57a6,
+    0 0 14px rgba(255, 255, 255, 0.9),
+    0 3px 6px rgba(60, 25, 95, 0.25),
+    inset 0 2px 3px rgba(255, 255, 255, 1) !important;
+  transform: translateY(2px);
+}
+
+/* 6. Blank Molded Keycap (Reserved Slot) */
+.keycap-plastic-blank {
+  background: linear-gradient(180deg, #c7aee0 0%, #b698d3 100%);
+  border: 1.5px solid #a484c4;
+  box-shadow:
+    0 3px 0 #896aa7,
+    0 3px 5px rgba(80, 50, 120, 0.15),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.4);
+  opacity: 0.6;
+}
+
+.keycap-plastic-blank:hover {
+  opacity: 0.75;
+}
+
+.keycap-plastic-blank:active {
+  box-shadow:
+    0 1px 0 #12031e,
+    inset 0 1.5px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Smooth custom scrollbars */
+.custom-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 4px;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: rgba(130, 70, 185, 0.4);
+  border-radius: 4px;
+}
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(130, 70, 185, 0.7);
+}
