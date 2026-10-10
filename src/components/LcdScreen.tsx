@@ -281,49 +281,49 @@ export const LcdScreen: React.FC<LcdScreenProps> = ({
           {/* 3-A. FAST Mode: 패스트스타트 20% vs 61일후 역삼각형 유니레벨 명쾌한 비교 화면 */}
           {mode === 'FAST' && (
             <div className="flex flex-col justify-between h-full font-sans">
-              <div>
-                <div className="flex items-baseline justify-between">
-                  <div>
-                    <span className="text-xs text-[#353e38] font-bold">
-                      {activeMetric ? activeMetric.label : '패스트스타트 추천 주급'}
-                    </span>
-                    <div className="text-2xl sm:text-3xl font-extrabold font-lcd text-[#111713] leading-tight">
-                      {activeMetric ? activeMetric.value : (currency === 'USD' ? '20% ($20 / 100PV)' : '1대 20% 주급 (약 2.6만원)')}
-                    </div>
-                  </div>
-
-                  <span className="text-[10.5px] font-bold bg-[#242c27] text-[#eef3ef] px-2 py-0.5 rounded font-sans">
-                    매주 목요일 현금 입금
+              <div className="space-y-1">
+                {/* 상단 라인: 왼쪽 제목, 오른쪽 맨 윗줄에 '매주 목요일 입금' 가로로 길게 배치 */}
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs sm:text-[13px] text-[#353e38] font-bold shrink-0">
+                    {activeMetric ? activeMetric.label : '패스트스타트 추천 주급'}
+                  </span>
+                  <span className="text-[11px] sm:text-xs font-bold text-[#1e2721] whitespace-nowrap shrink-0">
+                    매주 목요일 입금
                   </span>
                 </div>
 
-                {/* 60일 패스트 vs 61일 유니레벨 핵심 비교 박스 */}
-                <div className="my-1 p-1.5 rounded-lg bg-[#c8cfc9] border border-[#aab2ac] text-[11px] sm:text-xs space-y-1">
-                  <div className="flex items-center gap-1.5 font-bold text-[#111713]">
-                    <span className="bg-amber-300 text-amber-950 px-1.5 py-0.2 rounded font-black text-[10px] shrink-0">
-                      첫 60일 (패스트)
-                    </span>
-                    <span className="break-keep">1대 20% (가장 많이 지급!) ➔ 2대 10% ➔ 3대 5% (주급)</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 font-bold text-[#111713]">
+                {/* 금액 표시: 가로 전체 폭을 온전히 사용하여 큼직하게 한 줄 표시 */}
+                <div className="text-2xl sm:text-3xl font-extrabold font-lcd text-[#111713] leading-tight whitespace-nowrap overflow-x-auto tracking-tight">
+                  {activeMetric ? activeMetric.value : (currency === 'USD' ? '20% ($20 / 100PV)' : '1대 20% 주급 (약 2.6만원)')}
+                </div>
+
+                {/* 60일 패스트 vs 61일 유니레벨 비교 박스: 둘 다 검정 네모 배지로 통일 & 가로 한 줄로 길게 펼침 */}
+                <div className="p-1.5 rounded-lg bg-[#c8cfc9] border border-[#aab2ac] text-[11px] sm:text-xs space-y-1 overflow-x-auto">
+                  <div className="flex items-center gap-1.5 font-bold text-[#111713] whitespace-nowrap">
                     <span className="bg-[#242c27] text-white px-1.5 py-0.2 rounded font-black text-[10px] shrink-0">
-                      61일 이후 (유니레벨)
+                      첫 60일
                     </span>
-                    <span className="break-keep">1대 2% ➔ 깊을수록 최고 7대 7% (역삼각형 월급)</span>
+                    <span>1대 20% ➔ 2대 10% ➔ 3대 5% (주급)</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 font-bold text-[#111713] whitespace-nowrap">
+                    <span className="bg-[#242c27] text-white px-1.5 py-0.2 rounded font-black text-[10px] shrink-0">
+                      61일 이후
+                    </span>
+                    <span>1대 2% ➔ 깊을수록 최고 7대 7% (월급)</span>
                   </div>
                 </div>
 
-                <p className="text-xs sm:text-[13px] text-[#1c241e] leading-snug font-bold mt-0.5 break-keep">
+                <p className="text-xs sm:text-[13px] text-[#1c241e] leading-snug font-bold break-keep">
                   {activeMetric ? activeMetric.detail : '💡 첫 60일은 20% 주급으로 빠른 정착을 돕고, 61일 이후부터는 깊은 조직 7대 7% 역삼각형 보상으로 전환됩니다.'}
                 </p>
               </div>
 
-              {/* Bottom Condition Line */}
-              <div className="border-t border-[#b8bfb9] pt-1 flex items-center justify-between text-[10.5px] sm:text-[11px] font-bold text-[#262f28]">
-                <span className="text-rose-950 bg-rose-200/80 px-1 py-0.2 rounded">
-                  ⚠️ 내 카트에 100 PV(안전선 106 PV) 세팅 시 매주 목요일 주급 자동 입금
+              {/* Bottom Condition Line: 글잘림 방지 */}
+              <div className="border-t border-[#b8bfb9] pt-1 flex items-center justify-between text-[10.5px] sm:text-xs font-bold text-[#262f28]">
+                <span className="break-keep">[필수요건] 장바구니 100 PV(안전선 106 PV) 세팅 시 자동 입금</span>
+                <span className="text-purple-950 font-black shrink-0">
+                  신규 60일간
                 </span>
-                <span className="text-purple-950 font-black">신규 60일간</span>
               </div>
             </div>
           )}

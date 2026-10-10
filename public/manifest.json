@@ -1,0 +1,37 @@
+{
+  "id": "/",
+  "name": "doTERRA 만능 비즈니스 계산기",
+  "short_name": "도테라계산기",
+  "description": "실제 전자계산기 감성의 무광 파스텔 하드웨어 디자인을 갖춘 doTERRA 사업용 만능 계산기 웹앱",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#b388b8",
+  "background_color": "#b388b8",
+  "icons": [
+    {
+      "src": "/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
