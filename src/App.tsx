@@ -7,6 +7,9 @@ import { TopFunctionBar } from './components/TopFunctionBar';
 import { HardwareKeypad } from './components/HardwareKeypad';
 import { BusinessGuideModal } from './components/BusinessGuideModal';
 import { VideoPlayerModal } from './components/VideoPlayerModal';
+import { PixelOrgChartModal } from './components/PixelOrgChartModal';
+import { OilPvRankingModal } from './components/OilPvRankingModal';
+import { DropCostCalculatorModal } from './components/DropCostCalculatorModal';
 import { ToolCardItem } from './data/toolData';
 
 export default function App() {
@@ -14,6 +17,9 @@ export default function App() {
   const [currency, setCurrency] = useState<CurrencyUnit>('KRW');
   const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
   const [isGuideOpen, setIsGuideOpen] = useState<boolean>(false);
+  const [isOrgChartOpen, setIsOrgChartOpen] = useState<boolean>(false);
+  const [isOilRankingOpen, setIsOilRankingOpen] = useState<boolean>(false);
+  const [isDropCostOpen, setIsDropCostOpen] = useState<boolean>(false);
 
   // 1. Standard Calculator State
   const [calcDisplay, setCalcDisplay] = useState<string>('0');
@@ -384,10 +390,42 @@ export default function App() {
         onChangeCurrency={handleChangeCurrency}
         onOpenGuide={() => setIsGuideOpen(true)}
       >
-        {/* Full-Screen Business Guide Modal with VIP Secret E-Book */}
+        {/* Full-Screen Business Guide Modal with VIP Secret E-Book & Org Chart Launcher */}
         <BusinessGuideModal
           isOpen={isGuideOpen}
           onClose={() => setIsGuideOpen(false)}
+          onOpenOrgChart={() => {
+            soundManager.playClick('accent');
+            setIsOrgChartOpen(true);
+          }}
+        />
+
+        {/* Full-Screen Pixel Org Chart Modal */}
+        <PixelOrgChartModal
+          isOpen={isOrgChartOpen}
+          onClose={() => setIsOrgChartOpen(false)}
+        />
+
+        {/* Full-Screen 1 PV Cost Oil Ranking Modal */}
+        <OilPvRankingModal
+          isOpen={isOilRankingOpen}
+          onClose={() => setIsOilRankingOpen(false)}
+          onApplyPvToCalculator={(pv) => {
+            setOrderState((prev) => ({ ...prev, pv }));
+          }}
+        />
+
+        {/* Full-Screen Sharing & DIY Drop Cost Calculator Modal */}
+        <DropCostCalculatorModal
+          isOpen={isDropCostOpen}
+          onClose={() => setIsDropCostOpen(false)}
+          onApplyCostToCalc={(cost) => {
+            soundManager.playClick('accent');
+            setMode('CALC');
+            setCalcDisplay(String(cost));
+            setCalcEquation(`나눔 원가 ${cost.toLocaleString()}원`);
+            setIsDropCostOpen(false);
+          }}
         />
 
         {/* LCD Screen Display */}
@@ -403,6 +441,14 @@ export default function App() {
           soundEnabled={soundEnabled}
           onToggleSound={handleToggleSound}
           onOpenVideoModal={handleOpenVideoModal}
+          onOpenOilRanking={() => {
+            soundManager.playClick('accent');
+            setIsOilRankingOpen(true);
+          }}
+          onOpenDropCalc={() => {
+            soundManager.playClick('accent');
+            setIsDropCostOpen(true);
+          }}
         />
 
         {/* Top 8 Mode Function Keys */}
@@ -429,7 +475,16 @@ export default function App() {
           onQuickPvAdd={handleQuickPvAdd}
           onSimAction={handleSimAction}
           onOrderAction={handleOrderAction}
-          onSelectTool={(id) => setActiveToolId(id)}
+          onSelectTool={(id) => {
+            setActiveToolId(id);
+            if (id === 'tool_oil_ranking') {
+              soundManager.playClick('accent');
+              setIsOilRankingOpen(true);
+            } else if (id === 'tool_drop_calc') {
+              soundManager.playClick('accent');
+              setIsDropCostOpen(true);
+            }
+          }}
           onOpenGuide={() => setIsGuideOpen(true)}
         />
       </CalculatorChassis>

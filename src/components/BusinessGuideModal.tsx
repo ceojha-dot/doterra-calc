@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { X, BookOpen, AlertTriangle, CheckCircle2, Droplets, Layers, Award, Unlock, Lock, KeyRound } from 'lucide-react';
+import { X, BookOpen, AlertTriangle, CheckCircle2, Droplets, Layers, Award, Unlock, Lock, KeyRound, Users } from 'lucide-react';
 import { soundManager } from '../utils/audio';
 
 interface BusinessGuideModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onOpenOrgChart?: () => void;
 }
 
 type GuideTab = 'roadmap' | 'drops_promo' | 'checklist' | 'glossary' | 'vip_ebook';
 
-export const BusinessGuideModal: React.FC<BusinessGuideModalProps> = ({ isOpen, onClose }) => {
+export const BusinessGuideModal: React.FC<BusinessGuideModalProps> = ({ isOpen, onClose, onOpenOrgChart }) => {
   const [activeTab, setActiveTab] = useState<GuideTab>('roadmap');
   const [passcode, setPasscode] = useState<string>('');
   const [isUnlocked, setIsUnlocked] = useState<boolean>(false);
@@ -27,6 +28,13 @@ export const BusinessGuideModal: React.FC<BusinessGuideModalProps> = ({ isOpen, 
     onClose();
   };
 
+  const handleOpenOrg = () => {
+    soundManager.playClick('accent');
+    if (onOpenOrgChart) {
+      onOpenOrgChart();
+    }
+  };
+
   const handleUnlock = (e: React.FormEvent) => {
     e.preventDefault();
     if (passcode.trim() === '1004' || passcode.trim().toLowerCase() === 'doterra') {
@@ -40,32 +48,51 @@ export const BusinessGuideModal: React.FC<BusinessGuideModalProps> = ({ isOpen, 
   };
 
   return (
-    <div className="absolute inset-0 z-50 bg-[#faf7f2] rounded-[22px] sm:rounded-[26px] p-3 sm:p-4 flex flex-col text-[#2c1d3b] shadow-2xl animate-in fade-in duration-200 border-2 border-[#cfbde2]">
-      {/* Top Header: Warm Ivory + Rich doTERRA Deep Violet */}
-      <div className="flex items-center justify-between pb-2 border-b border-[#ddceec]">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-xl bg-[#522180] text-amber-300 flex items-center justify-center font-bold shadow-xs">
-            <BookOpen size={17} />
+    <div className="absolute inset-0 z-50 bg-[#faf7f2] rounded-[22px] sm:rounded-[26px] p-2.5 sm:p-3.5 flex flex-col text-[#2c1d3b] shadow-2xl animate-in fade-in duration-200 border-2 border-[#b81d3e]">
+      {/* Top Header: Contrast Deep Red/Burgundy Velvet Background (본문 바탕과 강렬하게 대비되는 레드창고 시그니처) */}
+      <div className="bg-gradient-to-r from-[#4d0716] via-[#751128] to-[#3d0511] text-white p-2.5 sm:p-3 rounded-2xl shadow-md border border-[#9b1f3c] mb-2 flex items-center justify-between">
+        <div className="flex items-center gap-2 sm:gap-2.5">
+          <div className="w-9 h-9 rounded-xl bg-amber-400/20 text-amber-300 border border-amber-300/40 flex items-center justify-center font-bold shadow-inner shrink-0">
+            <BookOpen size={18} className="text-amber-300" />
           </div>
           <div>
-            <h2 className="text-sm sm:text-base font-black text-[#331154] font-sans leading-tight">
-              도테라 비즈니스 실전 지식창고 & 시크릿 가이드
-            </h2>
-            <p className="text-[10.5px] text-[#6b3c94] font-semibold">
+            <div className="flex items-center gap-1.5">
+              <span className="px-1.5 py-0.5 rounded bg-amber-400 text-[#4a0715] font-black text-[9px] uppercase tracking-wider">
+                RED VAULT
+              </span>
+              <h2 className="text-sm sm:text-[15px] font-black text-white font-sans leading-tight drop-shadow-sm">
+                도테라 비즈니스 레드창고 & 시크릿 가이드
+              </h2>
+            </div>
+            <p className="text-[10px] sm:text-[10.5px] text-amber-100/90 font-medium mt-0.5">
               8대 직급 로드맵 · 방울 프로모션 · 동적압축 원리 총정리
             </p>
           </div>
         </div>
 
-        {/* Close Button */}
-        <button
-          type="button"
-          onClick={handleClose}
-          className="calc-btn-base px-2.5 py-1 rounded-full bg-[#ede4f7] hover:bg-white text-[#4a1c77] text-xs font-black flex items-center gap-1 border border-[#c4abdf] cursor-pointer shadow-xs"
-        >
-          <span>닫기</span>
-          <X size={14} />
-        </button>
+        {/* Action Controls: Dedicated Org Chart Key + Close Button */}
+        <div className="flex items-center gap-1.5 shrink-0">
+          {onOpenOrgChart && (
+            <button
+              type="button"
+              onClick={handleOpenOrg}
+              className="calc-btn-base px-2.5 py-1 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-black flex items-center gap-1 border border-emerald-400/60 cursor-pointer shadow-md transition-all hover:scale-105 active:scale-95"
+              title="도테라 파트너 픽셀 조직도 열기 (이름 입력 및 600PV 시뮬레이션)"
+            >
+              <Users size={13} className="text-emerald-200" />
+              <span>조직도 열기</span>
+            </button>
+          )}
+
+          <button
+            type="button"
+            onClick={handleClose}
+            className="calc-btn-base w-7 h-7 rounded-full bg-white/20 hover:bg-white text-white hover:text-[#4a0715] flex items-center justify-center border border-white/30 cursor-pointer shadow-xs transition-colors"
+            title="가이드 닫기"
+          >
+            <X size={15} />
+          </button>
+        </div>
       </div>
 
       {/* Navigation Tabs (5 Tabs) */}

@@ -133,10 +133,10 @@ export const HardwareKeypad: React.FC<HardwareKeypadProps> = ({
           { id: 'st_leg_tip', label: '3+1 레그', type: 'metric', value: '3+1 레그 배치 전략', detail: '★ 3+1 레그: 1대에 3명 + 예비 1명을 배치하여 파워오브쓰리와 팀 볼륨을 함께 챙기는 구조', variant: 'func' },
           { id: 'st_100pv', label: '100 PV', type: 'metric', value: '개인 100 PV 필수', detail: '★ 본인 LRP 100 PV 주문 완료 시에만 모든 유니레벨 및 팀 보너스 수당 수령 자격 활성화', variant: 'func' },
 
-          { id: 'st_ac', label: 'AC', type: 'calc-action', variant: 'clear' },
           { id: 'st_open_guide', label: '가이드', type: 'metric', value: '동적 압축 & 직급 로드맵', detail: '동적 압축 원리와 직급별 로드맵은 상단 [가이드] 버튼에서 확인하세요.', variant: 'func' },
           { id: 'b1', label: '', type: 'blank', variant: 'blank' },
           { id: 'b2', label: '', type: 'blank', variant: 'blank' },
+          { id: 'b2_extra', label: '', type: 'blank', variant: 'blank' },
 
           { id: 'b3', label: '', type: 'blank', variant: 'blank' },
           { id: 'b4', label: '', type: 'blank', variant: 'blank' },
@@ -162,10 +162,10 @@ export const HardwareKeypad: React.FC<HardwareKeypadProps> = ({
           { id: 'ld_tip', label: '누락방지', type: 'metric', value: '임파워풀 누락 방지', detail: '프리미어 달성 월에는 신규 1명(100PV)을 등록해야 25만원 수령!', variant: 'func' },
           { id: 'ld_diamond', label: '다이아', type: 'metric', value: '월 약 1,500만 원 이상', detail: '★ 달성: 실버 4개 독립 레그 육성 (다이아몬드 풀 배당)', variant: 'accent' },
 
-          { id: 'ld_ac', label: 'AC', type: 'calc-action', variant: 'clear' },
           { id: 'ld_guide', label: '가이드', type: 'metric', value: '직급 8단계 로드맵', detail: '매니저부터 다이아몬드까지 직급 계단은 상단 [가이드]에서 확인하세요!', variant: 'func' },
           { id: 'b7', label: '', type: 'blank', variant: 'blank' },
           { id: 'b8', label: '', type: 'blank', variant: 'blank' },
+          { id: 'b8_extra', label: '', type: 'blank', variant: 'blank' },
 
           { id: 'b9', label: '', type: 'blank', variant: 'blank' },
           { id: 'b10', label: '', type: 'blank', variant: 'blank' },
@@ -186,7 +186,7 @@ export const HardwareKeypad: React.FC<HardwareKeypadProps> = ({
           { id: 'p3_leg3', label: '3+1 레그', type: 'metric', value: '1:3:9:27 복제 원리', detail: '★ 3명씩 정석 복제 시 매월 5만 ➔ 25만 ➔ 150만 완성', variant: 'func' },
           { id: 'p3_guide', label: '가이드', type: 'metric', value: 'P3 보너스 팁', detail: '파워오브쓰리 실전 노하우는 상단 [가이드] 버튼에서 확인하세요.', variant: 'func' },
 
-          { id: 'p3_ac', label: 'AC', type: 'calc-action', variant: 'clear' },
+          { id: 'b14_extra', label: '', type: 'blank', variant: 'blank' },
           { id: 'b15', label: '', type: 'blank', variant: 'blank' },
           { id: 'b16', label: '', type: 'blank', variant: 'blank' },
           { id: 'b17', label: '', type: 'blank', variant: 'blank' },
@@ -215,7 +215,7 @@ export const HardwareKeypad: React.FC<HardwareKeypadProps> = ({
           { id: 'fst_tip', label: '수당계산법', type: 'metric', value: '100 PV당 약 26,000원', detail: '★ 신규 실적 PV × 해당 % × 1,320원으로 매주 목요일 입금됩니다.', variant: 'func' },
           { id: 'fst_guide_btn', label: '가이드', type: 'metric', value: '패스트스타트 실전팁', detail: '첫 60일 집중 케어 전략은 상단 [가이드] 버튼에서 확인하세요.', variant: 'func' },
 
-          { id: 'fst_ac', label: 'AC', type: 'calc-action', variant: 'clear' },
+          { id: 'b27_extra', label: '', type: 'blank', variant: 'blank' },
           { id: 'b28', label: '', type: 'blank', variant: 'blank' },
           { id: 'b29', label: '', type: 'blank', variant: 'blank' },
           { id: 'b30', label: '', type: 'blank', variant: 'blank' },
@@ -285,33 +285,34 @@ export const HardwareKeypad: React.FC<HardwareKeypadProps> = ({
         ];
       }
 
-      // 8. TOOL Mode: 핵심 도구 & 추천 영상 버튼
+      // 8. TOOL Mode: 핵심 도구 & 추천 바로가기 버튼
       case 'TOOL':
         return [
-          { id: 'tool_ac', label: 'AC', subLabel: '처음으로', type: 'calc-action', variant: 'clear' },
-          { id: 'tool_del', label: 'DEL', subLabel: '◀ 지움', type: 'calc-action', variant: 'func' },
-          { id: 'k_calc', label: '계산기사용법', subLabel: '1분 가이드 영상', type: 'tool-action', value: 'tool_calc_guide', variant: activeToolId === 'tool_calc_guide' ? 'accent' : 'standard' },
-          { id: 'k_comp', label: '보상플랜', subLabel: '5분 총정리 영상', type: 'tool-action', value: 'tool_compensation', variant: activeToolId === 'tool_compensation' ? 'accent' : 'standard' },
+          { id: 'k_oil', label: '오일기초', subLabel: '황근영 사이트', type: 'tool-action', value: 'tool_oil_basic', variant: activeToolId === 'tool_oil_basic' ? 'accent' : 'standard' },
+          { id: 'k_oil_rank', label: '가성비PV', subLabel: '1PV 랭킹', type: 'tool-action', value: 'tool_oil_ranking', variant: activeToolId === 'tool_oil_ranking' ? 'accent' : 'standard' },
+          { id: 'k_drop_calc', label: '나눔원가', subLabel: '방울단가·DIY', type: 'tool-action', value: 'tool_drop_calc', variant: activeToolId === 'tool_drop_calc' ? 'accent' : 'func' },
+          { id: 'k_box', label: '오일보관함', subLabel: '온라인오일박스', type: 'tool-action', value: 'tool_oil_box', variant: activeToolId === 'tool_oil_box' ? 'accent' : 'standard' },
 
-          { id: 'k_oil', label: '오일기초', subLabel: '홈케어 입문 영상', type: 'tool-action', value: 'tool_oil_basic', variant: activeToolId === 'tool_oil_basic' ? 'accent' : 'standard' },
-          { id: 'k_drops', label: '💧방울가이드', subLabel: '최저조합표', type: 'tool-action', value: 'tool_drops_guide', variant: activeToolId === 'tool_drops_guide' ? 'accent' : 'standard' },
-          { id: 'k_box', label: '오일보관함', subLabel: '원목 오일박스', type: 'tool-action', value: 'tool_oil_box', variant: activeToolId === 'tool_oil_box' ? 'accent' : 'standard' },
-          { id: 'k_roll', label: '공병·부자재', subLabel: '롤온·캐리어', type: 'tool-action', value: 'tool_rollon_bottle', variant: activeToolId === 'tool_rollon_bottle' ? 'accent' : 'standard' },
-
+          { id: 'k_comp', label: '보상플랜', subLabel: '준비중', type: 'tool-action', value: 'tool_compensation', variant: activeToolId === 'tool_compensation' ? 'accent' : 'standard' },
+          { id: 'k_roll', label: '공병·부자재', subLabel: '준비중', type: 'tool-action', value: 'tool_rollon_bottle', variant: activeToolId === 'tool_rollon_bottle' ? 'accent' : 'standard' },
+          { id: 'b45', label: '', type: 'blank', variant: 'blank' },
           { id: 'b46', label: '', type: 'blank', variant: 'blank' },
           { id: 'b47', label: '', type: 'blank', variant: 'blank' },
+
           { id: 'b48', label: '', type: 'blank', variant: 'blank' },
           { id: 'b49', label: '', type: 'blank', variant: 'blank' },
-
           { id: 'b50', label: '', type: 'blank', variant: 'blank' },
           { id: 'b51', label: '', type: 'blank', variant: 'blank' },
+
           { id: 'b52', label: '', type: 'blank', variant: 'blank' },
           { id: 'b53', label: '', type: 'blank', variant: 'blank' },
-
           { id: 'b54', label: '', type: 'blank', variant: 'blank' },
           { id: 'b55', label: '', type: 'blank', variant: 'blank' },
+
           { id: 'b56', label: '', type: 'blank', variant: 'blank' },
           { id: 'b57', label: '', type: 'blank', variant: 'blank' },
+          { id: 'b58', label: '', type: 'blank', variant: 'blank' },
+          { id: 'b59', label: '', type: 'blank', variant: 'blank' },
         ];
 
       default:

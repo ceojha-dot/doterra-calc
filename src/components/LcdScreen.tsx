@@ -21,6 +21,8 @@ interface LcdScreenProps {
   soundEnabled: boolean;
   onToggleSound: () => void;
   onOpenVideoModal: (tool: ToolCardItem) => void;
+  onOpenOilRanking?: () => void;
+  onOpenDropCalc?: () => void;
 }
 
 export const LcdScreen: React.FC<LcdScreenProps> = ({
@@ -35,6 +37,8 @@ export const LcdScreen: React.FC<LcdScreenProps> = ({
   soundEnabled,
   onToggleSound,
   onOpenVideoModal,
+  onOpenOilRanking,
+  onOpenDropCalc,
 }) => {
   // Format numbers by CurrencyUnit
   const formatMoney = (krwAmount: number) => {
@@ -140,7 +144,7 @@ export const LcdScreen: React.FC<LcdScreenProps> = ({
               {mode === 'P3' && '파워오브3 팀보너스 (5만~150만원)'}
               {mode === 'FAST' && '패스트스타트 추천 20% 주급'}
               {mode === 'SIMULATOR' && '실전 예상 수당 시뮬레이션'}
-              {mode === 'TOOL' && '사업 도구 & 추천 교육 영상'}
+              {mode === 'TOOL' && '사업 도구 & 추천 바로가기'}
             </span>
           </div>
 
@@ -551,29 +555,69 @@ export const LcdScreen: React.FC<LcdScreenProps> = ({
               <div className="pt-1 border-t border-[#b8bfb9] flex items-center justify-between">
                 {currentTool.category === '영상' ? (
                   <div className="flex items-center gap-1.5">
-                    <button
-                      type="button"
-                      onClick={() => onOpenVideoModal(currentTool)}
-                      className="calc-btn-base px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-[10.5px] font-bold flex items-center gap-1.5 shadow-sm cursor-pointer"
-                    >
-                      <Play size={12} className="fill-white" />
-                      <span>▶ 영상 시청하기 (전체화면)</span>
-                    </button>
+                    {currentTool.actionUrl === '#preparing' ? (
+                      <span className="px-3 py-1.5 rounded-lg bg-slate-700 text-slate-200 text-[10.5px] font-bold shadow-sm">
+                        ⏳ 최신 개정판 자료 [준비중입니다]
+                      </span>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => onOpenVideoModal(currentTool)}
+                        className="calc-btn-base px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-[10.5px] font-bold flex items-center gap-1.5 shadow-sm cursor-pointer"
+                      >
+                        <Play size={12} className="fill-white" />
+                        <span>▶ 영상 시청하기 (전체화면)</span>
+                      </button>
+                    )}
                   </div>
                 ) : (
-                  <a
-                    href={currentTool.actionUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="calc-btn-base px-2.5 py-1 rounded-lg bg-[#7a41bb] hover:bg-[#6830a6] text-white text-[10px] font-bold flex items-center gap-1 shadow-sm"
-                  >
-                    <ShoppingBag size={11} />
-                    <span>구매처 바로가기 ↗</span>
-                  </a>
+                  <div className="flex items-center gap-1.5">
+                    {currentTool.actionUrl === '#open_drop_calc' ? (
+                      <button
+                        type="button"
+                        onClick={onOpenDropCalc}
+                        className="calc-btn-base px-3 py-1.5 rounded-lg bg-[#522180] hover:bg-[#43176c] text-amber-300 text-[10.5px] font-black flex items-center gap-1.5 shadow-sm cursor-pointer animate-pulse"
+                      >
+                        <Sparkles size={12} />
+                        <span>나눔 원가 계산기 열기 ➔</span>
+                      </button>
+                    ) : currentTool.actionUrl === '#open_oil_ranking' ? (
+                      <button
+                        type="button"
+                        onClick={onOpenOilRanking}
+                        className="calc-btn-base px-3 py-1.5 rounded-lg bg-[#522180] hover:bg-[#43176c] text-amber-300 text-[10.5px] font-black flex items-center gap-1.5 shadow-sm cursor-pointer"
+                      >
+                        <Sparkles size={12} />
+                        <span>가성비 랭킹 순위표 열기 ➔</span>
+                      </button>
+                    ) : currentTool.actionUrl === '#preparing' ? (
+                      <span className="px-3 py-1.5 rounded-lg bg-slate-700 text-slate-200 text-[10.5px] font-bold shadow-sm">
+                        ⏳ 전용몰 오픈 [준비중입니다]
+                      </span>
+                    ) : (
+                      <a
+                        href={currentTool.actionUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="calc-btn-base px-2.5 py-1.5 rounded-lg bg-[#7a41bb] hover:bg-[#6830a6] text-white text-[10px] font-bold flex items-center gap-1 shadow-sm"
+                      >
+                        <ShoppingBag size={11} />
+                        <span>{currentTool.actionText} ↗</span>
+                      </a>
+                    )}
+                  </div>
                 )}
 
                 <span className="text-[9.5px] text-[#48534c] font-semibold">
-                  {currentTool.category === '영상' ? '유튜브 전체화면 플레이어' : '최저가 링크 연결'}
+                  {currentTool.actionUrl === '#open_drop_calc'
+                    ? '방울단가 & DIY 합산'
+                    : currentTool.actionUrl === '#open_oil_ranking'
+                    ? '1 PV 단가 전수조사표'
+                    : currentTool.actionUrl === '#preparing'
+                    ? '곧 오픈 예정'
+                    : currentTool.category === '영상'
+                    ? '유튜브 전체화면 플레이어'
+                    : '공식 사이트 링크'}
                 </span>
               </div>
             </div>
